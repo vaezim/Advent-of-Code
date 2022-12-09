@@ -42,3 +42,45 @@ for j in range(H):
 			visited.add((W-i-1,j))
 
 print(f"Solution of Part 1: {len(visited)}")
+
+def scenicScore(tree):
+	x, y = tree[0], tree[1]
+	res = 1
+	# down
+	i = 1
+	while x+i < H and nums[x+i][y] < nums[x][y]:
+		if x+i == H-1:
+			break
+		i += 1
+	res *= i
+	# top
+	i = 1
+	while 0 <= x-i and nums[x-i][y] < nums[x][y]:
+		if 0 == x-i:
+			break
+		i += 1
+	res *= i
+	# left
+	i = 1
+	while 0 <= y-i and nums[x][y-i] < nums[x][y]:
+		if 0 == y-i:
+			break
+		i += 1
+	res *= i
+	# right
+	i = 1
+	while y+i < W and nums[x][y+i] < nums[x][y]:
+		if y+i == W-1:
+			break
+		i += 1
+	res *= i
+	return res
+
+print(scenicScore((1,1)))
+
+MAX = 0
+for i in range(1,W-1):
+	for j in range(1,H-1):
+		MAX = max(MAX, scenicScore((i,j)))
+
+print(f"Solution of Part 1: {MAX}")
