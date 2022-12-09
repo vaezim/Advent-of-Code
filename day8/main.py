@@ -83,4 +83,4 @@ for i in range(1,W-1):
 	for j in range(1,H-1):
 		MAX = max(MAX, scenicScore((i,j)))
 
-print(f"Solution of Part 1: {MAX}")
+print(f"Solution of Part 2: {MAX}")
