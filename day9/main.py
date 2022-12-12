@@ -102,4 +102,3 @@ for line in lines:
         visited.add((rope[-1][0],rope[-1][1]))
 
 print(f"Answer of Part 2: {len(visited)}")
-
