@@ -1,16 +1,16 @@
 import heapq
 
 with open('input.txt', 'r+') as file:
-	calories = file.readlines()
+    calories = file.readlines()
 
 elves = []
 curr = 0
 for c in calories:
-	if c == '\n':
-		elves.append(curr)
-		curr = 0
-		continue
-	curr += int(c[:-1])
+    if c == '\n':
+        elves.append(curr)
+        curr = 0
+        continue
+    curr += int(c[:-1])
 
 print(f'Answer of part 1: {max(elves)}')
 
