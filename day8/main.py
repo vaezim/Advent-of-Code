@@ -76,11 +76,9 @@ def scenicScore(tree):
     res *= i
     return res
 
-print(scenicScore((1,1)))
-
 MAX = 0
 for i in range(1,W-1):
     for j in range(1,H-1):
         MAX = max(MAX, scenicScore((i,j)))
 
-print(f"Solution of Part 1: {MAX}")
+print(f"Solution of Part 2: {MAX}")
