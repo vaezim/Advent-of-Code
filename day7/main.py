@@ -1,6 +1,7 @@
 from filesystem import File, Dir
 from sys import exit
 
+
 root = Dir('/')
 curr_dir = root
 small_dirs = []

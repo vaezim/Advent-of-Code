@@ -32,3 +32,4 @@ class Dir:
             res += child.getSize()
         self.size = res
         return res
+        

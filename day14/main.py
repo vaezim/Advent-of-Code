@@ -6,12 +6,12 @@ with open('input.txt', 'r') as file:
 
 ##### Part 1 #####
 m = Map(bluePrintText)
-# m.printMap()
+m.printMap()
 
 is_abyss = 0
 while is_abyss != -1:
     is_abyss = m.traceSand(inplace=True)
-# m.printMap()
+m.printMap()
 
 sand_num = m.countSands()
 print(f"Answer of Part 1: {sand_num}")
