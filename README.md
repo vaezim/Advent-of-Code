@@ -1,7 +1,12 @@
 # Advent of Code
+Python/C++ solutions for [Advent of Code](https://adventofcode.com/) challenges.
 
->> add full AoC map when completed
-[![AoC 2022 Logo](https://i.postimg.cc/W4qV7gty/Screenshot-from-2022-12-08-18-20-01.png)](https://postimg.cc/942sm4dP)
-
->> add full AoC map when completed
-[![AoC 2021 Logo](https://i.postimg.cc/T1gVysG5/aoc2021.png)](https://postimg.cc/8fkJ9t7T)
+## Progress
+- **2015** ![](https://progress-bar.dev/1/?scale=25&width=300&suffix=/25)
+- **2016** ![](https://progress-bar.dev/1/?scale=25&width=300&suffix=/25)
+- **2017** ![](https://progress-bar.dev/1/?scale=25&width=300&suffix=/25)
+- **2018** ![](https://progress-bar.dev/1/?scale=25&width=300&suffix=/25)
+- **2019** ![](https://progress-bar.dev/1/?scale=25&width=300&suffix=/25)
+- **2020** ![](https://progress-bar.dev/7/?scale=25&width=300&suffix=/25)
+- **2021** ![](https://progress-bar.dev/5/?scale=25&width=300&suffix=/25)
+- **2022** ![](https://progress-bar.dev/19/?scale=25&width=300&suffix=/25)
