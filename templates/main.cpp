@@ -18,8 +18,7 @@ int main(int argc, char** argv) {
     std::string FILENAME = argv[1];
     std::ifstream file; file.open(FILENAME);
     if (!file.is_open()) {
-        std::cout << "Unable to open " << FILENAME << '\n';
-        return 1;
+        throw std::runtime_error("Unable to open file " + FILENAME);
     }
     std::string line;
     std::vector<std::string> lines;
