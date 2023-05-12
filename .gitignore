@@ -3,3 +3,6 @@
 a.out
 *vscode*
 .vs*
+*.o
+main
+
