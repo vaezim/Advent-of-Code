@@ -1,8 +1,8 @@
 *cache*
 *test*
-a.out
+*.out
 *vscode*
 .vs*
 *.o
 main
-
+*.gch
