@@ -4,11 +4,8 @@ with open('input', 'r+') as file:
 
 ##### Part 1 #####
 
-
-print(f"Answer of part 1: {result}")
+print(f"[+] Answer of part 1: {result}")
 
 ##### Part 2 #####
 
-
-print(f"Answer of part 2: {result}")
-
+print(f"[+] Answer of part 2: {result}")
