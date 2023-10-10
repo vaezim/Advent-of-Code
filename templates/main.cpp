@@ -1,9 +1,8 @@
-#include <algorithm>
-#include <iostream>
+#include <vector>
+#include <string>
 #include <sstream>
 #include <fstream>
-#include <string>
-#include <vector>
+#include <iostream>
 
 
 int main(int argc, char** argv) {
@@ -30,13 +29,13 @@ int main(int argc, char** argv) {
      * Part 1
      */
     
-    std::cout << "Answer of part 1: " << 0 << '\n';
+    std::cout << "[+] Answer of part 1: " << 0 << '\n';
 
     /*
      * Part 2
      */
     
-    std::cout << "Answer of part 2: " << 0 << '\n';
+    std::cout << "[+] Answer of part 2: " << 0 << '\n';
 
     return 0;
 }
