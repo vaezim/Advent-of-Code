@@ -10,3 +10,4 @@ Python/C++ solutions for [Advent of Code](https://adventofcode.com/) challenges.
 - **2020** ![](https://progress-bar.dev/7/?scale=25&width=300&suffix=/25)
 - **2021** ![](https://progress-bar.dev/7/?scale=25&width=300&suffix=/25)
 - **2022** ![](https://progress-bar.dev/20/?scale=25&width=300&suffix=/25)
+- **2023** ![](https://progress-bar.dev/0/?scale=25&width=300&suffix=/25)
