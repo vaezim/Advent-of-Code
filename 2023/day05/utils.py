@@ -1,3 +1,5 @@
+from Ranger import Ranger
+
 class Gardener:
     def __init__(self, text):
         self.text = text
@@ -7,15 +9,34 @@ class Gardener:
     def GetMinSeedLocations(self):
         min_loc = float("inf")
         for seed in self.seeds:
-            loc = self._GetSeedLocation(seed)
-            min_loc = min(min_loc, loc)
+            min_loc = min(min_loc, self._GetSeedLocation(seed))
         return min_loc
     
     def GetMinSeedRangeLocations(self):
-        pass
+        min_loc = float("inf")
+        for i in range(0, len(self.seeds), 2):
+            seed_range = [self.seeds[i], self.seeds[i]+self.seeds[i+1]]
+            locs = self._GetSeedRangeLocations(seed_range)
+            min_loc = min(min_loc, locs[0][0])
+        return min_loc
 
-    def _GetMinSeedRangeLocation(self, start, end):
-        
+    def _GetSeedRangeLocations(self, seed_range):
+        ranges = [seed_range]
+        for i, map in enumerate(self.maps):
+            output = []
+            for r in ranges:
+                R = Ranger(r[0], r[1])
+                transforms = self._CreateTransformFromMap(map)
+                layerOutput = R.Transform(transforms)
+                output.extend(layerOutput)
+            ranges = R.MergeRanges(output)
+        return ranges
+
+    def _CreateTransformFromMap(self, m):
+        transforms = {}
+        for item in m:
+            transforms[(item[1], item[1]+item[2]-1)] = item[0] - item[1]
+        return transforms
 
     def _GetSeedLocation(self, seed) -> int:
         for mapping in self.maps:
