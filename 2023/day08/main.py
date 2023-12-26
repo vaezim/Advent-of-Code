@@ -1,7 +1,7 @@
 from utils import Desert
 
 
-with open('input', 'r+') as file:
+with open("input", "r+") as file:
     lines = file.readlines()
 
 ##### Part 1 #####
