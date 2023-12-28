@@ -1,51 +1,49 @@
 import copy
 
+
 class Galaxy:
     def __init__(self, text):
         self.cosmos = self._ProcessText(text)
-        self.emptyRows = self._GetEmptyRows()
-        self.emptyCols = self._GetEmptyColumns()
-        self.expanded = self._GetExpandedCosmos()
+        self.emptyRows = sorted(self._GetEmptyRows())
+        self.emptyCols = sorted(self._GetEmptyColumns())
         self.galaxies = self._GetGalaxies()
 
-    def GetSumDistances(self):
+    def GetSumDistances(self, expansion_size=1):
         S = 0
         for i in range(len(self.galaxies)):
-            for j in range(i+1,len(self.galaxies)):
-                S += self._GetDistance(self.galaxies[i], self.galaxies[j])
+            for j in range(i + 1, len(self.galaxies)):
+                S += self._GetDistance(self.galaxies[i], self.galaxies[j], expansion_size)
         return S
-    
+
     def _GetGalaxies(self):
         galaxies = []
-        for i in range(len(self.expanded)):
-            for j in range(len(self.expanded[i])):
-                if self.expanded[i][j] == 1:
-                    galaxies.append((i,j))
+        for i in range(len(self.cosmos)):
+            for j in range(len(self.cosmos[i])):
+                if self.cosmos[i][j] == 1:
+                    galaxies.append((i, j))
         return galaxies
 
-    def _GetDistance(self, p1, p2):
+    def _GetDistance(self, p1, p2, expansion_size=1):
         x1, y1 = p1
         x2, y2 = p2
-        return abs(x1-x2) + abs(y1-y2)
+        expanded_row_num = self._GetListNumsInRange(self.emptyRows, min(x1,x2), max(x1,x2))
+        expanded_col_num = self._GetListNumsInRange(self.emptyCols, min(y1,y2), max(y1,y2))
+        return abs(x1 - x2) + abs(y1 - y2) + (expanded_col_num + expanded_row_num) * (expansion_size-1)
 
-    def _GetExpandedCosmos(self, size):
-        expanded = []
-        for i in range(len(self.cosmos)):
-            row = []
-            for j in range(len(self.cosmos[i])):
-                row.append(self.cosmos[i][j])
-                if j in self.emptyCols:
-                    row.append(self.cosmos[i][j])
-            expanded.append(row)
-            if i in self.emptyRows:
-                expanded.append(row.copy())
-        return expanded
+    def _GetListNumsInRange(self, arr, low, high):
+        count = 0
+        for n in arr:
+            if n > high:
+                return count
+            if n >= low:
+                count += 1
+        return count
 
     def _ProcessText(self, text):
         cosmos = [[0] * len(text[0]) for _ in range(len(text))]
         for i in range(len(text)):
             for j in range(len(text[i])):
-                if text[i][j] == '#':
+                if text[i][j] == "#":
                     cosmos[i][j] = 1
         return cosmos
 
