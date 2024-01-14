@@ -1,5 +1,5 @@
 '''
-https://github.com/fuglede/adventofcode/blob/master/2015/day22/solutions.py
+https://github.com/fuglede/adventofcode
 '''
 
 from dataclasses import dataclass
