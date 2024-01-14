@@ -16,16 +16,14 @@ def parse_floors(input):
 
 def is_valid_transition(floor):
     return len(set(type for _, type in floor)) < 2 or all(
-        (obj, "generator") in floor for (obj, type) in floor if type == "microchip"
-    )
+        (obj, "generator") in floor for (obj, type) in floor if type == "microchip")
 
 
 def next_states(state):
     moves, elevator, floors = state
 
     possible_moves = chain(
-        combinations(floors[elevator], 2), combinations(floors[elevator], 1)
-    )
+        combinations(floors[elevator], 2), combinations(floors[elevator], 1))
 
     for move in possible_moves:
         for direction in [-1, 1]:
@@ -38,22 +36,19 @@ def next_states(state):
             next_floors[next_elevator] = next_floors[next_elevator].union(move)
 
             if is_valid_transition(next_floors[elevator]) and is_valid_transition(
-                next_floors[next_elevator]
-            ):
+                next_floors[next_elevator]):
                 yield (moves + 1, next_elevator, next_floors)
 
 
 def is_all_top_level(floors):
     return all(
-        not floor for number, floor in enumerate(floors) if number < len(floors) - 1
-    )
+        not floor for number, floor in enumerate(floors) if number < len(floors) - 1)
 
 
 def count_floor_objects(state):
     _, elevator, floors = state
     return elevator, tuple(
-        tuple(Counter(type for _, type in floor).most_common()) for floor in floors
-    )
+        tuple(Counter(type for _, type in floor).most_common()) for floor in floors)
 
 
 def min_moves_to_top_level(floors):
