@@ -1,56 +1,48 @@
+#include <cmath>
 #include <iostream>
 #include "linked_elves.h"
 
 void LinkedElves::CreateLinkedElves()
 {
-    m_elves.reserve(m_elfNum);
-    for (int i=0; i < m_elfNum; i++) {
-        m_elves.push_back(std::make_shared<Node>(i+1));
+    m_head = std::make_shared<Node>(1);
+    std::shared_ptr<Node> curr = m_head;
+    for (int i=2; i <= m_elfNum; i++) {
+        auto next = std::make_shared<Node>(i);
+        curr->next = next;
+        curr = next;
     }
-    for (int i=0; i < m_elfNum-1; i++) {
-        m_elves[i]->next = m_elves[i+1];
-        m_elves[i+1]->prev = m_elves[i];
-    }
-    m_elves[0]->prev = m_elves.back();
-    m_elves.back()->next = m_elves[0];
-    m_head = m_elves.front();
-    m_tail = m_elves.back();
+    curr->next = m_head;
 }
 
 int LinkedElves::GetRemainingElf1()
 {
-    auto elfNum = m_elfNum;
+    int left_elves = m_elfNum;
     std::shared_ptr<Node> curr = m_head;
-    while (elfNum > 1) {
-        if (curr->val == 0) {
-            std::shared_ptr<Node> p = curr->prev;
-            std::shared_ptr<Node> n = curr->next;
-            p->next = n;
-            n->prev = p;
-
-            curr->prev = nullptr;
-            curr->next = nullptr;
-            curr = n;
-            elfNum--;
-            continue;
-        }
-        if (curr->next == nullptr) {
-            std::cout << "Elf number " << curr->position << " has no next\n";
-            return -1;
-        }
-        curr->val += curr->next->val;
-        curr->next->val = 0;
-        curr = curr->next;
+    while (left_elves > 1) {
+        auto next_node = curr->next->next;
+        curr->next = next_node;
+        curr = next_node;
+        left_elves--;
     }
-    for (const auto &elf: m_elves) {
-        if (elf->val > 0) {
-            return elf->position;
-        }
-    }
-    return -1;
+    return curr->position;
 }
 
 int LinkedElves::GetRemainingElf2()
 {
-    
+    int last_turn_winner = 3;  // winner at elf_num = 3
+    for (int elf_num=4; elf_num <= m_elfNum; elf_num++) {
+        int next = 2;
+        int removed_element = std::floor(elf_num/2.0) + 1;
+        int dist_to_removed = (next <= removed_element) ?
+            removed_element - next :
+            removed_element + elf_num - next;
+        int winner = (last_turn_winner - 1 < dist_to_removed) ?
+            next + last_turn_winner - 1 :
+            next + last_turn_winner;
+        if (winner > elf_num) {
+            winner -= elf_num;
+        }
+        last_turn_winner = winner;
+    }
+    return last_turn_winner;
 }

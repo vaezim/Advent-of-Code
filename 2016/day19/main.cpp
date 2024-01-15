@@ -1,7 +1,10 @@
+/*
+ * https://www.youtube.com/watch?v=uCsD3ZGzMgE
+ */
+
 #include <string>
 #include <iostream>
 #include "linked_elves.h"
-
 
 int main(int argc, char** argv) {
 
