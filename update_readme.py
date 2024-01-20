@@ -19,4 +19,9 @@ for year in range(2023,2014,-1):
     progress = getProgress(year)
     file.write(f"- **{year}** ![](https://progress-bar.dev/{progress}/?scale=25&width=300&suffix=/25)\n")
 
+# Calendars
+file.write("## Calendars\n")
+file.write("### 🌟 2015 🌟\n")
+file.write("https://github.com/vaezim/Advent-of-Code/assets/91099081/75a16dda-df61-48a0-8eae-c149bd9d589c\n")
+
 file.close()
