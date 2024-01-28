@@ -1,14 +1,41 @@
-from utils import Fractal
+'''
+https://github.com/dainnilsson/adventofcode-2017
+'''
+
+import sys
 
 
-with open('input', 'r+') as file:
-    lines = file.readlines()
+def parse(x):
+    return [[int(c == '#') for c in l] for l in x.split('/')]
 
-##### Part 1 #####
-fractal = Fractal(lines)
-result = fractal.GetNumOnPixels()
-print(f"[+] Answer of part 1: {result}")
+def rot(g):
+    for _ in range(4):
+        g = list(zip(*g[::-1]))
+        yield g
 
-##### Part 2 #####
+def key(g):
+    return str(min(min(x, x[::-1]) for x in rot(g)))
 
-print(f"[+] Answer of part 2: {result}")
+def iterate(g):
+    s = 2 + len(g) % 2
+    return sum([list(zip(*sum(r, [])))
+                for r in [[m[key([[c for c in l[x:x+s]]
+                                  for l in g[y:y+s]])]
+                           for x in range(0, len(g), s)]
+                          for y in range(0, len(g), s)]], [])
+
+m = {}
+file = open("input")
+for line in file.readlines():
+    k, r = [parse(x) for x in line.strip().split(' => ')]
+    m[key(k)] = r
+
+s = parse('.#./..#/###')
+
+for _ in range(5):
+    s = iterate(s)
+print(sum(1 for r in s for c in r if c))
+
+for _ in range(18-5):
+    s = iterate(s)
+print(sum(1 for r in s for c in r if c))
