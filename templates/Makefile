@@ -1,4 +1,4 @@
-classname = program
+classname = utils
 
 main: main.o $(classname).o
 		g++ main.o $(classname).o -o main
