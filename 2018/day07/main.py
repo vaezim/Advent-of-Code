@@ -1,14 +1,14 @@
-from utils import Steps
+from utils import Scheduler
 
 
-with open("test", "r+") as file:
+with open("input", "r+") as file:
     lines = file.readlines()
 
 ##### Part 1 #####
-steps = Steps(lines)
-result = steps.GetStepSequence()
+scheduler = Scheduler(lines)
+result = scheduler.GetSingleWorkerOrder()
 print(f"[+] Answer of part 1: {result}")
 
 ##### Part 2 #####
-result = steps.RunTwoWorkers()
+result = scheduler.GetMultiWorkerOrder(num_workers=5)
 print(f"[+] Answer of part 2: {result}")

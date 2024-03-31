@@ -1,62 +1,67 @@
-import threading
-from time import sleep
-from string import ascii_uppercase
-from collections import defaultdict
 
-
-class Steps:
+class Scheduler:
     def __init__(self, text):
-        self.roots = []
-        self.parent2child = defaultdict(list)  # parent => children
-        self.child2parent = defaultdict(list)  # child => parents
-        self._Process(text)
+        self.jobs = {} # job -> set(required_jobs)
+        self.completed_jobs = set()
+        self._ProcessText(text)
 
-    def RunTwoWorkers(self):
-        pass
-
-    def _Work(self):
-        pass
-
-    def GetStepSequence(self):
-        seq = ""
-        visited = set()
-        path_options = self.roots.copy()
-        while len(path_options):
-            if path_options[-1] in visited:
-                path_options.pop()
-                continue
-            path_options.sort()
-            path = path_options.pop(self._GetNextStep(path_options, visited))
-            seq += path
-            visited.add(path)
-            for child in self.parent2child[path]:
-                if child not in visited:
-                    path_options.append(child)
-        return seq
-
-    def _GetNextStep(self, path_options, visited):
-        for i in range(len(path_options)):
-            if path_options[i] in visited:
-                continue
-            all_parents_visited = True
-            for parent in self.child2parent[path_options[i]]:
-                if parent not in visited:
-                    all_parents_visited = False
+    def GetMultiWorkerOrder(self, num_workers):
+        time = 0
+        self.completed_jobs.clear()
+        workers = [] # len(workers) <= num_workers
+        while len(self.completed_jobs) < len(self.jobs):
+            ready_jobs = sorted(self._GetJobsWithNoDependency(workers))
+            for job in ready_jobs:
+                if len(workers) == num_workers:
                     break
-            if all_parents_visited:
-                return i
-        return None
+                workers.append([job, self._GetJobTime(job)])
+            workers.sort(key=lambda x: x[1], reverse=True) # Slowest to Fastest job
+            finished_job = workers.pop()
+            self.completed_jobs.add(finished_job[0])
+            time += finished_job[1]
+            for i in range(len(workers)):
+                workers[i][1] -= finished_job[1]
+        return time
 
-    def _Process(self, text):
-        parents = set()
-        children = set()
+    def GetSingleWorkerOrder(self):
+        order = ""
+        while len(self.completed_jobs) < len(self.jobs):
+            next_job = min(self._GetJobsWithNoDependency())
+            self.completed_jobs.add(next_job)
+            order += next_job
+        return order
+
+    def _GetJobTime(self, job):
+        return ord(job) - ord('A') + 61
+
+    def _GetJobsWithNoDependency(self, workers=[]):
+        jobs = []
+        for job in self.jobs.keys():
+            # Is completed
+            if job in self.completed_jobs:
+                continue
+            # Is handed to worker
+            is_handed_to_worker = False
+            for work in workers:
+                if work[0] == job:
+                    is_handed_to_worker = True
+                    break
+            if is_handed_to_worker:
+                continue
+            satisfied = True
+            for dep in self.jobs[job]:
+                if dep not in self.completed_jobs:
+                    satisfied = False
+                    break
+            if satisfied:
+                jobs.append(job)
+        return jobs
+
+    def _ProcessText(self, text: list):
         for line in text:
-            parent, child = line.split()[1], line.split()[7]
-            self.parent2child[parent].append(child)
-            self.child2parent[child].append(parent)
-            parents.add(parent)
-            children.add(child)
-        for child in children:
-            if child in parents:
-                parents.remove(child)
-        self.roots = list(parents)
+            parent, child = line.split()[1], line.split()[-3]
+            if self.jobs.get(parent) == None:
+                self.jobs[parent] = set()
+            if self.jobs.get(child) == None:
+                self.jobs[child] = set()
+            self.jobs[child].add(parent)
