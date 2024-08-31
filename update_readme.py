@@ -17,7 +17,9 @@ file.write("## Progress\n")
 
 for year in range(2023,2014,-1):
     progress = getProgress(year)
-    file.write(f"- **{year}** ![](https://progress-bar.dev/{progress}/?scale=25&width=300&suffix=/25)\n")
+    green_squares = progress*"✅"
+    empty_squares = (25-progress)*"🔲"
+    file.write(f"- **{year}** {green_squares}{empty_squares}\n")
 
 # Calendars
 file.write("\n## Calendars\n")
