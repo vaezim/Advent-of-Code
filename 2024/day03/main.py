@@ -2,10 +2,10 @@ from utils import Solver
 
 
 with open('input', 'r+') as file:
-    lines = file.readlines()
+    text = file.read()
 
 ##### Part 1 #####
-solver = Solver(lines)
+solver = Solver(text)
 result = solver.SolvePart1()
 print(f"[+] Answer of part 1: {result}")
 
