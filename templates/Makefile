@@ -1,4 +1,4 @@
-classname = utils
+classname = solver
 
 main: main.o $(classname).o
 		g++ main.o $(classname).o -o main
