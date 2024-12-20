@@ -2,9 +2,11 @@
 import os
 
 def getProgress(year: int):
-    if os.path.isdir(f"{year}"):
-        return len(os.listdir(f"{year}"))
-    return -1
+    progress = ['🔲'] * 25
+    for day in os.listdir(f"{year}"):
+        n = int(day[3:])
+        progress[n-1] = '✅'
+    return progress
 
 file = open("README.md", 'w+')
 
@@ -17,9 +19,8 @@ file.write("## Progress\n")
 
 for year in range(2024,2014,-1):
     progress = getProgress(year)
-    green_squares = progress*"✅"
-    empty_squares = (25-progress)*"🔲"
-    file.write(f"- **{year}** {green_squares}{empty_squares}\n")
+    progress = ''.join(progress)
+    file.write(f"- **{year}** {progress}\n")
 
 # Calendars
 file.write("\n## Calendars\n")
