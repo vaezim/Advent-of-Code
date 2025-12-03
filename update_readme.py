@@ -17,7 +17,7 @@ file.write("Python/C++ solutions for [Advent of Code](https://adventofcode.com/)
 # Progress bars
 file.write("## Progress\n")
 
-for year in range(2024,2014,-1):
+for year in range(2025,2014,-1):
     progress = getProgress(year)
     progress = ''.join(progress)
     file.write(f"- **{year}** {progress}\n")
