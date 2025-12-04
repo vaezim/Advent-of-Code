@@ -2,7 +2,10 @@
 import os
 
 def getProgress(year: int):
-    progress = ['🔲'] * 25
+    if year < 2025:
+        progress = ['🔲'] * 25
+    else:
+        progress = ['🔲'] * 12
     for day in os.listdir(f"{year}"):
         n = int(day[3:])
         progress[n-1] = '✅'
